@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js – The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					
+						<img src="infraascode.gif" alt="reveal.js logo" style="height: 250px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<h3>Demysitifing Infrastructure as code </h3>
+					<p>
+						<small>Created by Suresh krishnan Date 11-11-20</small>
+					</p>
+				</section>
+				
+
+				<!-- Example of nested vertical slides -->
+				<section  data-background-transition="zoom">
+					<section>
+						<h3>Good old Days :)  </h3>
+						<span style='font-size:50px;'>&#128526;</span>
+						<p>Infrastructure by Hands :) </p>
+						<a href="#" class="navigate-down">
+							<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="400" height="300" data-src="datacenter.png" alt="Down arrow">
+						</a>
+					</section>
+					<section>
+						<h2>Virtualization</h2>
+						<p></p>
+						<a href="#" class="navigate-down">
+							<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="600" height="300" data-src="Virtualize.png" alt="Down arrow">
+						</a>
+
+					</section>
+					<section >
+						<h2>Cloud</h2>
+						
+						<br>
+						<a href="#/2">
+							<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="600" height="400" data-src="Cloud.jpg" alt="Up arrow">
+						</a>
+					</section>
+				</section>
+				<section>
+				<section>	
+					<h2>What is IAC (Infrastructure As Code) </h2>
+						<img src="Thinking.png" alt="reveal.js logo" style="height: 400px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					
+				</section>
+				<section>
+					
+					<p>
+						As the name suggests, Infrastructure as Code uses code to provision, configure, and manage infrastructure.
+					</p>
+				</section>
+				<section>
+						<p> This description is done using code, often using a declarative language. The language you use varies depending on the tools you use, 
+						    from common scripting languages to Domain Specific Languages (DSL) provided by the tools.</p>
+				</section>
+				<section>
+						<h3> Alternatives </h3>
+				</section>
+
+				<section>
+					
+					<ul>
+						<li>Manually setting up your infrastructure using the visual console</li>
+						<li>Using the CLI tool provided by a cloud provider</li>
+						<li>Owritten your own collection of configuration tools, management tools, deployment scripts, and so on.</li>
+						
+					</ul>
+				</section>
+
+				<section>
+					<p> And well things go out of hand <p>
+					<br>
+					<img src="Writingcode.png" alt="reveal.js logo" style="height: 400px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+
+				</section>
+
+				
+				<section data-auto-animate >
+					<h1> Tools </h1> 
+				</section>
+				<section>
+				<img src="Tools.png" alt="reveal.js logo" style="height: 400px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+				</section>		
+				</section>
+
+				<section>
+				<section data-auto-animate>
+				
+					<h4 data-id="code-title">Powershell DSC </h4>
+					<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+Configuration WebsiteTest {
+
+Import-DscResource -ModuleName PsDesiredStateConfiguration
+
+Node 'localhost' {
+# The first resource block ensures that the Web-Server (IIS) feature is enabled.
+			WindowsFeature WebServer {
+            Ensure = "Present"
+            Name   = "Web-Server"
+        }
+    }
+}
+					</code></pre>
+					
+					
+				</section>
+
+				<section data-auto-animate>
+				
+					<h4 data-id="code-title">Ansbile Playbook </h4>
+					<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+										
+						# This playbook installs and enables IIS on Windows hosts
+
+						- name: Install IIS
+						hosts: all
+						gather_facts: false
+						tasks:
+							- name: Install IIS
+							win_feature:
+								name: "Web-Server"
+								state: present
+								restart: yes
+								include_sub_features: yes
+								include_management_tools: yes
+					</code></pre>
+				</section>
+
+				
+				
+				
+					<section>
+						<h4>Terraform</h4>
+				<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>		
+						
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 2.70"
+    }
+  }
+}
+
+provider "aws" {
+  profile = "default"
+  region  = "us-west-2"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-830c94e3"
+  instance_type = "t2.micro"
+}
+				</code></pre>
+
+						
+					</section>
+					
+					<section data-transition="zoom">
+					
+						<p></p>
+						<a href="#" class="navigate-down">
+							<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="600" height="300" data-src="DEMO.gif" alt="Down arrow">
+						</a>
+
+					</section>
+				</section>
+
+				<section>
+				<section data-transition="zoom">
+					<h2>Wrap up</h2>
+					
+				</section>
+				<section data-transition="zoom-in fade-out">
+				<li>(IaC) bridges the gap between system administrators and developers</li>
+				</section>
+				<section data-transition="convex">
+				<li>Helps developers think about the entire lifecycle of the software they are developing.</li>
+				</section>
+				<section data-transition="concave">
+				<li>Brings version control, code reviews, knowledge sharing, and other benefits to systems administration</li>
+				</section>
+				<section data-transition="convex-in concave-out">
+				<li>Reduces the need for repetitive and error-prone tasks, freeing people up to work on more exciting things.</li>
+				</section>
+
+				</section data-transition="zoom">
+				<section style="text-align: left;">
+
+					<h1>THE END</h1>
+					<span style='font-size:100px;'>&#128591;</span>
+				
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
